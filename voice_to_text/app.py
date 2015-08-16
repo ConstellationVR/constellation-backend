@@ -1,5 +1,6 @@
 from flask import Flask
 import speech_recognition as sr
+import socket 
 
 import flask 
 
@@ -26,6 +27,6 @@ def speech_to_text():
 
 if __name__ == '__main__':
     app.debug=True
-    app.run(port=5555)
+    app.run(host=socket.gethostbyname(socket.gethostname()), port=5555)
     
     
