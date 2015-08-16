@@ -1,0 +1,25 @@
+{
+  "d3": {
+        "nodes":[
+        {"name":"Myriel","group":1},
+        {"name":"Napoleon","group":1}
+      ],
+      "links":[
+        {"source":1,"target":0,"value":1},
+        {"source":2,"target":0,"value":8}
+
+      ]
+  },
+  "bing": ["internet explorer", "internet speed test", "internet explorer 11", "internet truckstop", "internet movie database"],
+  "abstract": [
+        {
+        "abstract": "Virtual Reality (VR), sometimes referred to as immersive multimedia, is a computer-simulated environment that can simulate physical presence in places in the real world or imagined worlds. Virtual reality can recreate sensory experiences, which include virtual taste, sight, smell, sound, and touch.Most current virtual reality environments are displayed either on a computer screen or with special stereoscopic displays, and some simulations include additional sensory information and emphasise real sound through speakers or headphones targeted towards VR users. Some advanced, haptic, systems now include tactile information, generally known as force feedback in medical, gaming and military applications. Furthermore, virtual reality covers remote communication environments which provide virtual presence of users with the concepts of telepresence and telexistence or a virtual artifact (VA) either through the use of standard input devices such as a keyboard and mouse, or through multimodal devices such as a wired glove or omnidirectional treadmills. The simulated environment can be similar to the real world in order to create a lifelike experience\u2014for example, in simulations for pilot or combat training\u2014or it differs significantly from reality, such as in VR games. In practice, it is currently very difficult to create a high-fidelity virtual reality experience, because of technical limitations on processing power, image resolution, and communication bandwidth. However, VR's proponents hope that virtual reality's enabling technologies become more powerful and cost effective over time.Virtual reality is often used to describe a wide variety of applications commonly associated with immersive, highly visual, 3D environments. The development of CAD software, graphics hardware acceleration, head-mounted displays, datagloves, and miniaturization have helped popularize the notion. In the book The Metaphysics of Virtual Reality by Michael R. Heim, seven different concepts of virtual reality are identified: simulation, interaction, artificiality, immersion, telepresence, full-body immersion, and network communication. People often identify VR with head mounted displays and data suits.The possibility exists to have films and television programmes which are watched with a head-mounted display and computer control of the image so that the viewer appears to be inside the scene with the action going all round. The computer presents the view which corresponds to the direction the viewer is facing, through a system of head-tracking.  This would give the viewers the feeling that they are actually going to the scene in person instead of looking at pictures on a screen. The term \"virtual space\" has been suggested as more specific for this technology, which is described in detail in the article Virtual Space - the movies of the future.",
+        "relevance": "0.917283",
+        "text": "Virtual reality"
+      }, {
+        "abstract": "Simulated reality is the hypothesis that reality could be simulated\u2014for example by computer simulation\u2014to a degree indistinguishable from \"true\" reality. It could contain conscious minds which may or may not be fully aware that they are living inside a simulation.This is quite different from the current, technologically achievable concept of virtual reality. Virtual reality is easily distinguished from the experience of actuality; participants are never in doubt about the nature of what they experience. Simulated reality, by contrast, would be hard or impossible to separate from \"true\" reality.There has been much debate over this topic, ranging from philosophical discourse to practical applications in computing.",
+        "relevance": "0.508703",
+        "text": "Simulated reality"
+      }
+    ]
+}

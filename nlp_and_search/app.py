@@ -23,9 +23,13 @@ def index():
 
 @app.route('/post', methods=['POST'])
 def handlepost():
-    f = open('static/graphs/'+''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
-+'.json', 'w')
+    filename = 'static/graphs/'+''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
+    f = open(filename +'.json', 'w')
     f.write(request.data)
+    f.close()
+
+    f = open(filename+'.d3.json', 'w')
+    f.write(json.dumps(json.loads(request.data)['d3']))
     f.close()
 
     return ''
@@ -37,7 +41,15 @@ def list():
     onlyfiles = [ f for f in listdir(mypath) if (isfile(join(mypath,f)) and f.endswith('.json')) ]
     files['files'] = onlyfiles
     return flask.jsonify(**files)
-
+@app.route('/map/<query>')
+def browse(query):
+    mypath = 'static/graphs/'
+    onlyfiles = [ f.replace('.json','') for f in listdir(mypath) if (isfile(join(mypath,f)) and f.endswith('.json')) ]
+    if query in onlyfiles:
+        filename = query+'.json'
+        return flask.render_template('browse.html', name=query, data=json.loads(open(mypath+filename,'r').read()), d3=json.dumps(json.loads(open(mypath+filename,'r').read())['d3']))
+    else:
+        return "Invalid Brainmap ID"
 @app.route('/stem/<query>')
 def stem(query):
     quer = query.split()
