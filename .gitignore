@@ -1,0 +1,12 @@
+# Virtualenv
+bin
+lib
+include
+
+# Mac OS X custom attribute files
+.DS_Store
+
+*api_key.txt
+*.pyc
+molly
+voice_to_text/molly
