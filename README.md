@@ -1,4 +1,4 @@
-# molly-backend
+# Constellation-Backend
 installation
 --- 
     pip2.7 install -r requirements.txt
@@ -11,5 +11,5 @@ Requires a file ``api_key.txt`` with your IBM Alchemy API key.
 voice to text api 
 --- 
 - call '/' endpoint 
-- wait for 'Calibration done'
+- automatically calibrates -- trigger to begin speaking
 - begin speaking
