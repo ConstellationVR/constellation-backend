@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View a brainstorm</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+  <style type="text/css">
+    body {
+      padding-top: 20px;
+    }
+    .node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+  </style>
+</head>
+ <body>
+    <div class="container">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="/static/img/logo.png" width="100px" style="margin-top: -3px"></a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <div class="row">
+        <div class="col-md-8">
+          <div class="panel panel-info">
+            <div class="panel-heading"><b>{{name}} - Brainmap</b></div>
+            <div class="panel-body" id="kappa123" style="display:block;">
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-warning">
+            <div class="panel-heading"><b>Landmarks</b></div>
+
+            <div class="panel-body">
+                {% for x in data.abstract %}
+                    <ul>
+                        <li><a href="https://en.wikipedia.org/wiki/{{x.text.replace(' ','_')}}">{{x.text}}</a> </li>
+                    </ul>
+                {% endfor %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script>
+        var width = 720,
+            height = 500;
+
+        var color = d3.scale.category20();
+
+        var force = d3.layout.force()
+            .charge(-120)
+            .linkDistance(30)
+            .size([width, height]);
+
+        var svg = d3.select("#kappa123").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+        var dat = {{d3|safe}};
+        d3.json("/static/graphs/{{name}}d3.json", function(error, graph) {
+          if (error) throw error;
+
+          force
+              .nodes(graph.nodes)
+              .links(graph.links)
+              .start();
+
+          var link = svg.selectAll(".link")
+              .data(graph.links)
+            .enter().append("line")
+              .attr("class", "link")
+              .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+          var node = svg.selectAll(".node")
+              .data(graph.nodes)
+            .enter().append("circle")
+              .attr("class", "node")
+              .attr("r", 5)
+              .style("fill", function(d) { return color(d.group); })
+              .call(force.drag);
+
+          node.append("title")
+              .text(function(d) { return d.name; });
+
+          force.on("tick", function() {
+            link.attr("x1", function(d) { return d.source.x; })
+                .attr("y1", function(d) { return d.source.y; })
+                .attr("x2", function(d) { return d.target.x; })
+                .attr("y2", function(d) { return d.target.y; });
+
+            node.attr("cx", function(d) { return d.x; })
+                .attr("cy", function(d) { return d.y; });
+          });
+        });
+
+        </script>
+
+  </body>
+</html>
+

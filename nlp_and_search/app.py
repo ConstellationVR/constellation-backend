@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, render_template
 
 import flask, re
 
@@ -6,15 +6,50 @@ from nltk.stem import *
 from nltk.corpus import wordnet
 
 from alchemyapi import AlchemyAPI
-import socket 
+import socket, random, string
 import urllib, json
+
+from os import listdir
+from os.path import isfile, join
 
 app = Flask(__name__)
 
 alchemyapi = AlchemyAPI()
 
 bing_base_url = 'http://api.bing.com/osjson.aspx?query='
+@app.route('/')
+def index():
+    return render_template('index.html')
 
+@app.route('/post', methods=['POST'])
+def handlepost():
+    filename = 'static/graphs/'+''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
+    f = open(filename +'.json', 'w')
+    f.write(request.data)
+    f.close()
+
+    f = open(filename+'.d3.json', 'w')
+    f.write(json.dumps(json.loads(request.data)['d3']))
+    f.close()
+
+    return ''
+
+@app.route('/list')
+def list():
+    files = {}
+    mypath = 'static/graphs/'
+    onlyfiles = [ f for f in listdir(mypath) if (isfile(join(mypath,f)) and f.endswith('.json')) ]
+    files['files'] = onlyfiles
+    return flask.jsonify(**files)
+@app.route('/map/<query>')
+def browse(query):
+    mypath = 'static/graphs/'
+    onlyfiles = [ f.replace('.json','') for f in listdir(mypath) if (isfile(join(mypath,f)) and f.endswith('.json')) ]
+    if query in onlyfiles:
+        filename = query+'.json'
+        return flask.render_template('browse.html', name=query, data=json.loads(open(mypath+filename,'r').read()), d3=json.dumps(json.loads(open(mypath+filename,'r').read())['d3']))
+    else:
+        return "Invalid Brainmap ID"
 @app.route('/stem/<query>')
 def stem(query):
     quer = query.split()
